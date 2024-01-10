@@ -11,7 +11,10 @@ df['Date'] = df['Date'].apply(lambda x: dt.strptime(x, '%d/%m/%Y'))
 df['Holiday'].replace(['No Holiday', 'Holiday'], [0, 1], inplace=True)
 df['Functioning Day'].replace(['No', 'Yes'], [0, 1], inplace=True)
 
-df = pd.get_dummies(df)
+# Dew point temperature(°C) and Temperature(°C) have 0.91 of correlation, so we will drop one of them to avoid multicollinearity
+df.drop('Dew point temperature(°C)', axis=1, inplace=True)
+
+#df = pd.get_dummies(df)
 
 df['Year']=df['Date'].dt.year
 df['Month']=df['Date'].dt.month
@@ -21,7 +24,3 @@ mapping_dictDay={'Monday': 1,'Tuesday': 2,'Wednesday': 3,'Thursday': 4,'Friday':
 df['WeekDayEncoding']=df['WeekDay'].map(mapping_dictDay)
 
 df.to_csv('data/processed/SeoulBikeData2.csv', date_format='%d/%m/%Y', index=False)
-
-
-df.head()
-df.tail()
