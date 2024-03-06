@@ -21,6 +21,8 @@ df['Month']=df['Date'].dt.month
 df['Day']=df['Date'].dt.day
 df['WeekDay']=df['Date'].dt.day_name()
 mapping_dictDay={'Monday': 1,'Tuesday': 2,'Wednesday': 3,'Thursday': 4,'Friday': 5,'Saturday': 6,'Sunday': 7}
-df['WeekDayEncoding']=df['WeekDay'].map(mapping_dictDay)
+df['WeekDayEncoding'] = df['WeekDay'].map(mapping_dictDay)
+df['IsWeekend'] = np.where(df['WeekDayEncoding'] > 5, 1, 0)
 
-df.to_csv('data/processed/SeoulBikeData2.csv', date_format='%d/%m/%Y', index=False)
+df.to_csv('data/processed/SeoulBikeDataEDA.csv', date_format='%d/%m/%Y', index=False)
+df.to_csv('data/processed/SeoulBikeDataEDA.csv', date_format='%d/%m/%Y', index=False)
